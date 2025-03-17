@@ -2,6 +2,7 @@
 	order rate_limit before basicauth
 }
 :80 {
+	encode zstd gzip
 	redir /favicon.ico /favicon/favicon.ico 301
 	root * /usr/share/caddy
 	rate_limit {
@@ -11,8 +12,8 @@
 			window 1s
 		}
 	}
-	encode zstd gzip
 	reverse_proxy /smartProgress-or* web-ui.smart-progress-or.svc:8080
+	reverse_proxy /hinst-website* hinst-website.smart-progress-or.svc:8080
 	handle /configKeeper* {
 		basicauth {
 			import configKeeperPassword.txt

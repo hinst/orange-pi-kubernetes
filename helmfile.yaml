@@ -20,3 +20,7 @@ releases:
   chart: smart-progress-or-web-ui
   namespace: smart-progress-or
   installed: true
+- name: hinst-website
+  chart: hinst-website
+  namespace: smart-progress-or
+  installed: true

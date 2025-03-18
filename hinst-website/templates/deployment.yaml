@@ -31,6 +31,8 @@ spec:
       containers:
       - name: hinst-website
         image: hinst/hinst-website:latest
+        imagePullPolicy: Always
+        args: ["--allowOrigin=https://hinst.github.io"]
         ports:
         - containerPort: 8080
         livenessProbe:

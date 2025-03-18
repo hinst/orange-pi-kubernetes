@@ -10,6 +10,7 @@ spec:
       backoffLimit: 1
       template:
         spec:
+          restartPolicy: Never
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
@@ -38,4 +39,3 @@ spec:
               limits:
                 cpu: 1
                 memory: 300Mi
-          restartPolicy: Never

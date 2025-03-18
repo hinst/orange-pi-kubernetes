@@ -23,7 +23,7 @@ spec:
           - name: hinst-website-translator
             image: hinst/hinst-website:latest
             imagePullPolicy: Always
-            args: ["--translatorApi=http://192.168.0.3:1235"]
+            args: ["--mode=translate", "--translatorApi=http://192.168.0.3:1235"]
             volumeMounts:
               - name: data
                 mountPath: /app/saved-goals

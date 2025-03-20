@@ -44,6 +44,9 @@ spec:
           - name: data
             mountPath: /app/saved-goals
             readOnly: true
+        envFrom:
+          - secretRef:
+              name: hinst-website-admin
         resources:
           requests:
             cpu: 0

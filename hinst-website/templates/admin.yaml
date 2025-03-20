@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hinst-website-admin
+data:
+  ADMIN_PASSWORD: {{ .Files.Get "adminPassword.txt" | b64enc }}

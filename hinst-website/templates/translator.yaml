@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: hinst-website-translator
 spec:
-  schedule: "0 5 * * *"
+  schedule: "0 0 * * *"
   suspend: true
   concurrencyPolicy: Forbid
   jobTemplate:

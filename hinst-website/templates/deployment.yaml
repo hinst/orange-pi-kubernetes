@@ -43,7 +43,7 @@ spec:
         volumeMounts:
           - name: data
             mountPath: /app/saved-goals
-            readOnly: true
+            readOnly: false
         envFrom:
           - secretRef:
               name: hinst-website-admin

@@ -4,7 +4,7 @@ metadata:
   name: hinst-website-translator
 spec:
   schedule: "0 0 * * *"
-  suspend: true
+  suspend: false
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:

@@ -1,0 +1,1 @@
+docker build -t hinst/adminer --progress=plain --platform=linux/arm64 .

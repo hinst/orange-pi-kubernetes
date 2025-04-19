@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+  labels:
+    app: adminer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  minReadySeconds: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        runAsUser: 1000
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: smart-progress-or
+      containers:
+      - name: adminer
+        image: hinst/adminer
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 60
+        volumeMounts:
+          - name: data
+            mountPath: /data/saved-goals
+            readOnly: false

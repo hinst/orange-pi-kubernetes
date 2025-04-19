@@ -24,3 +24,7 @@ releases:
   chart: hinst-website
   namespace: smart-progress-or
   installed: true
+- name: adminer
+  chart: adminer
+  namespace: smart-progress-or
+  installed: true

@@ -7,3 +7,5 @@ data:
 {{ .Files.Get "Caddyfile" | indent 4 }}
   configKeeperPassword.txt: |-
 {{ .Files.Get "configKeeperPassword.txt" | indent 4 }}
+  adminerPassword.txt: |-
+{{ .Files.Get "adminerPassword.txt" | indent 4 }}

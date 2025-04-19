@@ -16,7 +16,7 @@
 	reverse_proxy /hinst-website* hinst-website.smart-progress-or.svc:8080
 	handle /adminer* {
 		basicauth {
-			import configKeeperPassword.txt
+			import adminerPassword.txt
 		}
 		reverse_proxy /adminer* adminer.smart-progress-or.svc:8080
 	}
@@ -24,7 +24,7 @@
 		basicauth {
 			import configKeeperPassword.txt
 		}
-		reverse_proxy /configKeeper* config-keeper.config-keeper.svc:3000
+		reverse_proxy /configKeeper* config-keeper.config-keeper.svc:8080
 	}
 	file_server
 	log

@@ -4,4 +4,4 @@ metadata:
   name: downloader-config
 data:
   goalId: '247488,416007'
-  migrationEnabled: 'false'
+  migrationEnabled: 'true'

@@ -16,10 +16,6 @@ releases:
   chart: smart-progress-or-storage
   namespace: smart-progress-or
   installed: true
-- name: smart-progress-or-web-ui
-  chart: smart-progress-or-web-ui
-  namespace: smart-progress-or
-  installed: false
 - name: hinst-website
   chart: hinst-website
   namespace: smart-progress-or

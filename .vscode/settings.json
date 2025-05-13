@@ -1,9 +1,11 @@
 {
 	"cSpell.words": [
 		"adminer",
+		"basicauth",
 		"ERRORLEVEL",
 		"helmfile",
 		"hinst",
-		"linux"
+		"linux",
+		"redir"
 	]
 }

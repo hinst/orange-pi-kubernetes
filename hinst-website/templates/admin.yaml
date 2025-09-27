@@ -4,3 +4,4 @@ metadata:
   name: hinst-website-admin
 data:
   ADMIN_PASSWORD: {{ .Files.Get "adminPassword.txt" | b64enc }}
+  GIT_TOKEN: {{ .Files.Get "githubToken.txt" | b64enc }}

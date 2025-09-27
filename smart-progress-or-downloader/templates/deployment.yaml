@@ -32,11 +32,6 @@ spec:
                   configMapKeyRef:
                     name: downloader-config
                     key: goalId
-              - name: migrationEnabled
-                valueFrom:
-                  configMapKeyRef:
-                    name: downloader-config
-                    key: migrationEnabled
             resources:
               requests:
                 cpu: 1m

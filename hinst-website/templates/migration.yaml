@@ -3,14 +3,12 @@ kind: Job
 metadata:
   name: hinst-website-migration
 spec:
-  concurrencyPolicy: Forbid
   suspend: true
   backoffLimit: 0
   template:
     spec:
       restartPolicy: Never
       securityContext:
-        allowPrivilegeEscalation: false
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000

@@ -13,7 +13,6 @@ spec:
         spec:
           restartPolicy: Never
           securityContext:
-            allowPrivilegeEscalation: false
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
@@ -35,6 +34,9 @@ spec:
                   name: hinst-website-admin
               - configMapRef:
                   name: hinst-website-config
+            env:
+              - name: GOMEMLIMIT
+                value: "200MiB"
             resources:
               requests:
                 cpu: 0

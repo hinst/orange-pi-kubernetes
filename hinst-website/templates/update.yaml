@@ -13,8 +13,10 @@ spec:
         spec:
           restartPolicy: Never
           securityContext:
+            allowPrivilegeEscalation: false
             runAsNonRoot: true
             runAsUser: 1000
+            runAsGroup: 1000
           volumes:
             - name: data
               persistentVolumeClaim:
@@ -39,4 +41,4 @@ spec:
                 memory: 0
               limits:
                 cpu: 1
-                memory: 100Mi
+                memory: 300Mi

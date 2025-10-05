@@ -20,6 +20,9 @@ spec:
             - name: data
               persistentVolumeClaim:
                 claimName: smart-progress-or
+            - name: secret
+              secret:
+                secretName: hinst-website-secret
           containers:
           - name: hinst-website-update
             image: hinst/hinst-website:latest
@@ -29,6 +32,9 @@ spec:
               - name: data
                 mountPath: /app/saved-goals
                 readOnly: false
+              - name: secret
+                mountPath: /app/secret
+                readOnly: true
             envFrom:
               - secretRef:
                   name: hinst-website-admin
@@ -37,6 +43,8 @@ spec:
             env:
               - name: GOMEMLIMIT
                 value: "200MiB"
+              - name: GOOGLE_ACCOUNT_JSON
+                value: /app/secret/hinst-github-io-key.json
             resources:
               requests:
                 cpu: 0

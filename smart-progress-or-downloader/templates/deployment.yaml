@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: downloader
 spec:
-  schedule: "0 0 * * *"
+  schedule: "0 22 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:

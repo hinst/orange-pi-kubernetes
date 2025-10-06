@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: hinst-website-update
 spec:
-  schedule: "15 0 * * *"
+  schedule: "15 22 * * *"
   suspend: false
   concurrencyPolicy: Forbid
   jobTemplate:

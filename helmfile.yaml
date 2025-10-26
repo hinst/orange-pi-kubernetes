@@ -11,7 +11,7 @@ releases:
 - name: smart-progress-or-downloader
   chart: smart-progress-or-downloader
   namespace: smart-progress-or
-  installed: true
+  installed: false
 - name: smart-progress-or-storage
   chart: smart-progress-or-storage
   namespace: smart-progress-or

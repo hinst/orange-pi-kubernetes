@@ -5,13 +5,13 @@ releases:
   installed: true
 - name: dashboard-account
   chart: dashboard-account
-  namespace: default
-  installed: false
+  namespace: kubernetes-dashboard
+  installed: true
 
 - name: smart-progress-or-downloader
   chart: smart-progress-or-downloader
   namespace: smart-progress-or
-  installed: false
+  installed: true
 - name: smart-progress-or-storage
   chart: smart-progress-or-storage
   namespace: smart-progress-or

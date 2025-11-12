@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hinst-website-backup-script
+data:
+  Caddyfile: |-
+{{ .Files.Get "backup.sh" | indent 4 }}

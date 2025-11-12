@@ -11,8 +11,9 @@ echo "$(date) Compressing -> $backupFile"
 tar --create --auto-compress --file="$backupFile" "smart-progress-or"
 
 # Delete old backups
-filesToRemove=($(find "$backupDir" -maxdepth 1 -type f | sort | head -n -$backupsToKeep))
-for fileToRemove in "${filesToRemove[@]}"; do
+mapfile -t filesToRemove < <(find "$backupDir" -maxdepth 1 -type f | sort | head -n -$backupsToKeep)
+for fileToRemove in "${filesToRemove[@]}"
+do
 	echo "Removing old backup: $fileToRemove"
 	rm "$fileToRemove"
 done

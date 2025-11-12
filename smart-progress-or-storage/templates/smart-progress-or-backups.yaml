@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: smart-progress-or-backups
+spec:
+  storageClassName: local-path
+  capacity:
+    storage: 10Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /home/orangepi/App/smart-progress-or-backups
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smart-progress-or-backups
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1Gi

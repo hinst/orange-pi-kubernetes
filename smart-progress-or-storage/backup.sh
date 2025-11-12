@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 backupDir="/data/smart-progress-or-backups"
 backupsToKeep=4
 

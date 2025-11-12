@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: hinst-website-backup-script
 data:
-  Caddyfile: |-
+  backup.sh: |-
 {{ .Files.Get "backup.sh" | indent 4 }}

@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hinst-website-backup
+spec:
+  schedule: "0 0 * * SUN"
+  suspend: false
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          volumes:
+          - name: script
+            configMap:
+              name: hinst-website-backup-script
+          - name: data
+            persistentVolumeClaim:
+              claimName: smart-progress-or
+          - name: backup
+            persistentVolumeClaim:
+              claimName: smart-progress-or-backups
+          containers:
+            - name: hinst-website-backup
+              image: debian:trixie-slim
+              args: ["/bin/bash", "/script/backup.sh"]
+              volumeMounts:
+              - name: script
+                mountPath: /script
+                readOnly: true
+              - name: data
+                mountPath: /data/smart-progress-or
+                readOnly: true
+              - name: backup
+                mountPath: /data/smart-progress-or-backups
+                readOnly: false
+              resources:
+                requests:
+                  cpu: "0"
+                  memory: "0"
+                limits:
+                  cpu: "1"
+                  memory: 1Gi

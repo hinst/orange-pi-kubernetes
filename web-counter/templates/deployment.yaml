@@ -28,10 +28,10 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: smart-progress-or
+            claimName: web-counter
       containers:
       - name: web-counter
-        image: hinst/hinst-website:latest
+        image: hinst/web-counter:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -40,12 +40,15 @@ spec:
             path: /web-counter/about
             port: 8080
           periodSeconds: 60
+          timeoutSeconds: 10
         startupProbe:
           httpGet:
             path: /web-counter/about
             port: 8080
           failureThreshold: 10
           periodSeconds: 60
+          initialDelaySeconds: 100
+          timeoutSeconds: 30
         volumeMounts:
           - name: data
             mountPath: /app/data

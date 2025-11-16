@@ -40,7 +40,7 @@ spec:
             path: /web-counter/about
             port: 8080
           periodSeconds: 60
-          timeoutSeconds: 10
+          timeoutSeconds: 30
         startupProbe:
           httpGet:
             path: /web-counter/about
@@ -48,7 +48,7 @@ spec:
           failureThreshold: 10
           periodSeconds: 60
           initialDelaySeconds: 100
-          timeoutSeconds: 30
+          timeoutSeconds: 60
         volumeMounts:
           - name: data
             mountPath: /app/data

@@ -24,9 +24,9 @@ spec:
       - name: web-router-config
         configMap:
           name: web-router-config
-      - name: web-router-favicon
+      - name: web-router-files
         configMap:
-          name: web-router-favicon
+          name: web-router-files
       containers:
       - name: caddy
         image: hinst/orange-caddy:latest
@@ -36,8 +36,8 @@ spec:
         volumeMounts:
         - name: web-router-config
           mountPath: /etc/caddy
-        - name: web-router-favicon
-          mountPath: /usr/share/caddy/favicon
+        - name: web-router-files
+          mountPath: /usr/share/caddy
         resources:
           requests:
             cpu: 1m

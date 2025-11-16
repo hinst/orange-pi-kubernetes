@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-counter
+  labels:
+    app: web-counter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-counter
+  minReadySeconds: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: web-counter
+    spec:
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: smart-progress-or
+      containers:
+      - name: web-counter
+        image: hinst/hinst-website:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /web-counter/about
+            port: 8080
+          periodSeconds: 60
+        startupProbe:
+          httpGet:
+            path: /web-counter/about
+            port: 8080
+          failureThreshold: 10
+          periodSeconds: 60
+        volumeMounts:
+          - name: data
+            mountPath: /app/data
+            readOnly: false
+        resources:
+          requests:
+            cpu: 0
+            memory: 0
+          limits:
+            cpu: 1
+            memory: 500Mi
+

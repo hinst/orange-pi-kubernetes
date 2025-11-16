@@ -3,7 +3,6 @@
 }
 :80 {
 	encode zstd gzip
-	redir /favicon.ico /favicon/favicon.ico 301
 	root * /usr/share/caddy
 	rate_limit {
 		zone dynamic_zone {
@@ -14,6 +13,7 @@
 	}
 	reverse_proxy /smartProgress-or* web-ui.smart-progress-or.svc:8080
 	reverse_proxy /hinst-website* hinst-website.smart-progress-or.svc:8080
+	reverse_proxy /web-counter* web-counter.smart-progress-or.svc:8080
 	handle /adminer* {
 		basicauth {
 			import adminerPassword.txt

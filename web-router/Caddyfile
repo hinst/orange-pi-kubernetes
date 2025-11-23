@@ -16,7 +16,7 @@
 	reverse_proxy /web-counter* web-counter.smart-progress-or.svc:8080
 	handle /adminer* {
 		basicauth {
-			import adminerPassword.txt
+			import adminerPassword.txt  # This file should be in the same directory where Caddyfile is located
 		}
 		reverse_proxy /adminer* adminer.smart-progress-or.svc:8080
 	}

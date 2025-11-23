@@ -1,0 +1,5 @@
+apiVersion: v2
+name: uptime-kuma-on-orange-pi
+description: Uptime monitor on Orange Pi
+type: application
+version: 0.1.0

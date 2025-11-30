@@ -26,9 +26,12 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
       volumes:
-        - name: data
+        - name: smart-progress-or
           persistentVolumeClaim:
             claimName: smart-progress-or
+        - name: web-counter
+          persistentVolumeClaim:
+            claimName: web-counter
       containers:
       - name: adminer
         image: hinst/adminer
@@ -41,6 +44,9 @@ spec:
             port: 8080
           periodSeconds: 60
         volumeMounts:
-          - name: data
+          - name: smart-progress-or
             mountPath: /data/saved-goals
+            readOnly: false
+          - name: web-counter
+            mountPath: /data/web-counter
             readOnly: false

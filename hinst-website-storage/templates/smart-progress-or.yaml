@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: smart-progress-or
 spec:
-  storageClassName: local-path
+  storageClassName: smart-progress-or
   capacity:
     storage: 1Gi
   accessModes:
@@ -19,7 +19,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: local-path
+  storageClassName: smart-progress-or
   resources:
     requests:
       storage: 1Gi

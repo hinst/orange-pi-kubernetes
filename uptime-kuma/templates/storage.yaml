@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: uptime-kuma-data
 spec:
-  storageClassName: local-path
+  storageClassName: uptime-kuma-storage
   capacity:
     storage: 1Gi
   accessModes:
@@ -19,7 +19,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: local-path
+  storageClassName: uptime-kuma-storage
   resources:
     requests:
       storage: 1Gi

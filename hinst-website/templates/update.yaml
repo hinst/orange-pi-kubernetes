@@ -27,7 +27,7 @@ spec:
           - name: hinst-website-update
             image: hinst/hinst-website:latest
             imagePullPolicy: Always
-            args: ["--mode=update", "--translatorApi=http://192.168.0.25:1235"]
+            args: ["--mode=update", "--translatorApi=http://192.168.0.31:1235"]
             volumeMounts:
               - name: data
                 mountPath: /app/saved-goals

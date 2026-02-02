@@ -32,3 +32,6 @@ releases:
   chart: uptime-kuma
   namespace: uptime-kuma
   installed: true
+- name: postgre-sql
+  chart: postgre-sql
+  namespace: postgre-sql

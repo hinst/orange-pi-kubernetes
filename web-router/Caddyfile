@@ -15,13 +15,13 @@
 	reverse_proxy /hinst-website* hinst-website.smart-progress-or.svc:8080
 	reverse_proxy /web-counter* web-counter.smart-progress-or.svc:8080
 	handle /adminer* {
-		basicauth {
-			import adminerPassword.txt  # This file should be in the same directory where Caddyfile is located
+		basic_auth {
+			import adminerPassword.txt # This file should be in the same directory where Caddyfile is located
 		}
 		reverse_proxy /adminer* adminer.smart-progress-or.svc:8080
 	}
 	handle /configKeeper* {
-		basicauth {
+		basic_auth {
 			import configKeeperPassword.txt
 		}
 		reverse_proxy /configKeeper* config-keeper.config-keeper.svc:8080

@@ -11,6 +11,7 @@
 		"orangepi",
 		"postgre",
 		"postgres",
+		"postgresql",
 		"redir"
 	]
 }

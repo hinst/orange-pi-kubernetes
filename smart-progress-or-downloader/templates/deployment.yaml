@@ -25,14 +25,13 @@ spec:
             image: hinst/smart-progress-do-downloader:latest
             imagePullPolicy: Always
             volumeMounts:
-              - name: data
-                mountPath: /app/data
-            env:
-              - name: goalId
-                valueFrom:
-                  configMapKeyRef:
-                    name: downloader-config
-                    key: goalId
+            - name: data
+              mountPath: /app/data
+            envFrom:
+            - configMapRef:
+                name: downloader-config
+            - secretRef:
+                name: downloader-secret
             resources:
               requests:
                 cpu: 1m

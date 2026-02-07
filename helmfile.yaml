@@ -35,3 +35,4 @@ releases:
 - name: postgre-sql
   chart: postgre-sql
   namespace: postgre-sql
+  installed: true

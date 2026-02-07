@@ -10,6 +10,7 @@
 		"linux",
 		"orangepi",
 		"postgre",
+		"postgres",
 		"redir"
 	]
 }

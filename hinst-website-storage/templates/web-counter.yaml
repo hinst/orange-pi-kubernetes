@@ -3,7 +3,9 @@ kind: PersistentVolume
 metadata:
   name: web-counter
 spec:
-  storageClassName: web-counter
+  storageClassName: ""
+  claimRef:
+    name: web-counter
   capacity:
     storage: 1Gi
   accessModes:
@@ -19,7 +21,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: web-counter
+  storageClassName: ""
   resources:
     requests:
       storage: 1Gi

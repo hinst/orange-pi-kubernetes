@@ -15,29 +15,22 @@ spec:
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
-          volumes:
-            - name: data
-              persistentVolumeClaim:
-                claimName: smart-progress-or
           containers:
-          - name: downloader
-            image: hinst/smart-progress-do-downloader:latest
-            imagePullPolicy: Always
-            volumeMounts:
-            - name: data
-              mountPath: /app/data
-            envFrom:
-            - configMapRef:
-                name: downloader-config
-            - secretRef:
-                name: downloader-secret
-            resources:
-              requests:
-                cpu: 1m
-                memory: 1
-              limits:
-                cpu: 1
-                memory: 300Mi
+            - name: downloader
+              image: hinst/smart-progress-do-downloader:latest
+              imagePullPolicy: Always
+              envFrom:
+                - configMapRef:
+                    name: downloader-config
+                - secretRef:
+                    name: downloader-secret
+              resources:
+                requests:
+                  cpu: 1m
+                  memory: 1
+                limits:
+                  cpu: 1
+                  memory: 300Mi
           dnsConfig:
             options:
               - name: ndots

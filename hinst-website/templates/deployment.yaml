@@ -21,7 +21,6 @@ spec:
         app: hinst-website
     spec:
       securityContext:
-        allowPrivilegeEscalation: false
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000

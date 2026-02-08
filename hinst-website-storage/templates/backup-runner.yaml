@@ -13,12 +13,12 @@ spec:
         spec:
           restartPolicy: Never
           volumes:
-          - name: script
-            configMap:
-              name: hinst-website-backup-script
-          - name: backup
-            persistentVolumeClaim:
-              claimName: hinst-website-backups
+            - name: script
+              configMap:
+                name: hinst-website-backup-script
+            - name: backup
+              persistentVolumeClaim:
+                claimName: hinst-website-backups
           containers:
             - name: hinst-website-backup
               image: postgres:18
@@ -30,12 +30,15 @@ spec:
               command: ["/bin/bash"]
               args: ["/script/backup.sh"]
               volumeMounts:
-              - name: script
-                mountPath: /script
-                readOnly: true
-              - name: backup
-                mountPath: /data/hinst-website-backups
-                readOnly: false
+                - name: script
+                  mountPath: /script
+                  readOnly: true
+                - name: backup
+                  mountPath: /data/hinst-website-backups
+                  readOnly: false
+              envFrom:
+                - secretRef:
+                  name: backup-secret
               resources:
                 requests:
                   cpu: "0"

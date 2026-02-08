@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 backupDir="/data/hinst-website-backups"
 backupsToKeep=4
 

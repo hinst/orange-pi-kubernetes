@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: hinst-website-migration
+  name: hinst-website-migration-01
 spec:
   suspend: true
   backoffLimit: 0
@@ -12,19 +12,11 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: smart-progress-or
       containers:
         - name: hinst-website-migration
           image: hinst/hinst-website:latest
           imagePullPolicy: Always
           args: ["--mode=migrate"]
-          volumeMounts:
-            - name: data
-              mountPath: /app/saved-goals
-              readOnly: false
           envFrom:
             - secretRef:
                 name: hinst-website-secret-values

@@ -20,10 +20,6 @@ spec:
       labels:
         app: adminer
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       volumes:
         - name: hinst-website-storage
           persistentVolumeClaim:
@@ -35,6 +31,11 @@ spec:
       - name: adminer
         image: hinst/adminer
         imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
         ports:
         - containerPort: 8080
         livenessProbe:

@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: hinst-website-storage
 spec:
-  storageClassName: local-filesystem
+  storageClassName: ""
   claimRef:
     name: hinst-website-storage
   capacity:
@@ -21,7 +21,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: local-filesystem
+  storageClassName: ""
   resources:
     requests:
       storage: 1Gi

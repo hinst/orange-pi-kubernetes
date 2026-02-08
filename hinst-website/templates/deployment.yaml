@@ -20,15 +20,16 @@ spec:
       labels:
         app: hinst-website
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       containers:
         - name: hinst-website
           image: hinst/hinst-website:latest
           imagePullPolicy: Always
           args: ["--allowOrigin=https://hinst.github.io"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
           ports:
             - containerPort: 8080
           livenessProbe:

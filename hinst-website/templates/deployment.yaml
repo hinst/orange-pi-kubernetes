@@ -25,10 +25,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: smart-progress-or
       containers:
       - name: hinst-website
         image: hinst/hinst-website:latest
@@ -41,10 +37,6 @@ spec:
             path: /hinst-website
             port: 8080
           periodSeconds: 60
-        volumeMounts:
-          - name: data
-            mountPath: /app/saved-goals
-            readOnly: false
         envFrom:
           - secretRef:
               name: hinst-website-secret-values

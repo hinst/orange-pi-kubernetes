@@ -43,6 +43,8 @@ spec:
           env:
             - name: GOMEMLIMIT
               value: "150MiB"
+            - name: GOGC
+              value: "20"
           resources:
             requests:
               cpu: 0

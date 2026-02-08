@@ -43,6 +43,8 @@ spec:
             env:
               - name: GOMEMLIMIT
                 value: "200MiB"
+              - name: GOGC
+                value: "20"
               - name: GOOGLE_ACCOUNT_JSON
                 value: /app/secret/hinst-github-io-key.json
             resources:

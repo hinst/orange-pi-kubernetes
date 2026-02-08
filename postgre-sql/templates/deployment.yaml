@@ -17,34 +17,34 @@ spec:
       labels:
         app: postgre-sql
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: postgre-sql
       containers:
-      - name: postgre-sql
-        image: postgres:18
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 5432
-        volumeMounts:
-          - name: data
-            mountPath: /var/lib/postgresql
-            readOnly: false
-        args:
-          - -c
-          - max_connections=10
-        envFrom:
-          - secretRef:
-              name: postgre-sql
-        resources:
-          requests:
-            cpu: 0
-            memory: 0
-          limits:
-            cpu: 1
-            memory: 300Mi
+        - name: postgre-sql
+          image: postgres:18
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql
+              readOnly: false
+          args:
+            - -c
+            - max_connections=10
+          envFrom:
+            - secretRef:
+                name: postgre-sql
+          resources:
+            requests:
+              cpu: 0
+              memory: 0
+            limits:
+              cpu: 1
+              memory: 300Mi

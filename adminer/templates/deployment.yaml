@@ -26,9 +26,9 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
       volumes:
-        - name: smart-progress-or
+        - name: hinst-website-storage
           persistentVolumeClaim:
-            claimName: smart-progress-or
+            claimName: hinst-website-storage
         - name: web-counter
           persistentVolumeClaim:
             claimName: web-counter
@@ -44,7 +44,7 @@ spec:
             port: 8080
           periodSeconds: 60
         volumeMounts:
-          - name: smart-progress-or
+          - name: hinst-website-storage
             mountPath: /data/saved-goals
             readOnly: false
           - name: web-counter

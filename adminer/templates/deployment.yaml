@@ -21,9 +21,6 @@ spec:
         app: adminer
     spec:
       volumes:
-        - name: hinst-website-storage
-          persistentVolumeClaim:
-            claimName: hinst-website-storage
         - name: web-counter
           persistentVolumeClaim:
             claimName: web-counter
@@ -44,9 +41,6 @@ spec:
             port: 8080
           periodSeconds: 60
         volumeMounts:
-          - name: hinst-website-storage
-            mountPath: /data/saved-goals
-            readOnly: false
           - name: web-counter
             mountPath: /data/web-counter
             readOnly: false

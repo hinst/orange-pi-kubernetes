@@ -19,7 +19,7 @@ spec:
           volumes:
             - name: data
               persistentVolumeClaim:
-                claimName: smart-progress-or
+                claimName: hinst-website-storage
             - name: secret
               secret:
                 secretName: hinst-website-secret-files

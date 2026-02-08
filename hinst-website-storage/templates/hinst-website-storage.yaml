@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hinst-website-storage
+spec:
+  storageClassName: local-filesystem
+  claimRef:
+    name: hinst-website-storage
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /home/orangepi/App/hinst-website-storage
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hinst-website-storage
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: local-filesystem
+  resources:
+    requests:
+      storage: 1Gi

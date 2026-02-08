@@ -4,6 +4,7 @@
 		"basicauth",
 		"ERRORLEVEL",
 		"github",
+		"GOMEMLIMIT",
 		"helmfile",
 		"hinst",
 		"kuma",

@@ -7,7 +7,7 @@ backupsToKeep=4
 cd "$backupDir"
 echo "Dumping SQL"
 pg_dump --dbname=hinst-website \
-	--host postgre-sql.postgre-sql.svc --port 5431 --username hinst_website_downloader \
+	--host postgre-sql.postgre-sql.svc --port 5432 --username hinst_website_downloader \
 	--file=dump.sql --clean --if-exists --verbose
 
 dateTimeString="$(date +%Y-%m-%d_%H-%M-%S)"

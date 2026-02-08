@@ -22,7 +22,7 @@ spec:
                 claimName: smart-progress-or
             - name: secret
               secret:
-                secretName: hinst-website-secret
+                secretName: hinst-website-secret-files
           containers:
           - name: hinst-website-update
             image: hinst/hinst-website:latest
@@ -37,7 +37,7 @@ spec:
                 readOnly: true
             envFrom:
               - secretRef:
-                  name: hinst-website-admin
+                  name: hinst-website-secret-values
               - configMapRef:
                   name: hinst-website-config
             env:

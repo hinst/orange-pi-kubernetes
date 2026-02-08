@@ -47,7 +47,7 @@ spec:
             readOnly: false
         envFrom:
           - secretRef:
-              name: hinst-website-admin
+              name: hinst-website-secret-values
         resources:
           requests:
             cpu: 0

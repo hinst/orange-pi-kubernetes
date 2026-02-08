@@ -12,10 +12,6 @@ spec:
       template:
         spec:
           restartPolicy: Never
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
           volumes:
           - name: script
             configMap:
@@ -25,14 +21,20 @@ spec:
               claimName: hinst-website-backups
           containers:
             - name: hinst-website-backup
-              image: debian:trixie-slim
-              args: ["/bin/bash", "/script/backup.sh"]
+              image: postgres:18
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
+              command: ["/bin/bash"]
+              args: ["/script/backup.sh"]
               volumeMounts:
               - name: script
                 mountPath: /script
                 readOnly: true
               - name: backup
-                mountPath: /data/smart-progress-or-backups
+                mountPath: /data/hinst-website-backups
                 readOnly: false
               resources:
                 requests:

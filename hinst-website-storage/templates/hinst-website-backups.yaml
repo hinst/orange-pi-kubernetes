@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: smart-progress-or-backups
+  name: hinst-website-backups
 spec:
-  storageClassName: smart-progress-or-backups
+  storageClassName: hinst-website-backups
   capacity:
     storage: 1Gi
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: /home/orangepi/App/smart-progress-or-backups
+    path: /home/orangepi/App/hinst-website-backups
 ---
 
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: smart-progress-or-backups
+  name: hinst-website-backups
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: smart-progress-or-backups
+  storageClassName: hinst-website-backups
   resources:
     requests:
       storage: 1Gi

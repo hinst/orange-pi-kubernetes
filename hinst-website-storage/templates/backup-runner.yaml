@@ -20,12 +20,9 @@ spec:
           - name: script
             configMap:
               name: hinst-website-backup-script
-          - name: data
-            persistentVolumeClaim:
-              claimName: smart-progress-or
           - name: backup
             persistentVolumeClaim:
-              claimName: smart-progress-or-backups
+              claimName: hinst-website-backups
           containers:
             - name: hinst-website-backup
               image: debian:trixie-slim
@@ -33,9 +30,6 @@ spec:
               volumeMounts:
               - name: script
                 mountPath: /script
-                readOnly: true
-              - name: data
-                mountPath: /data/smart-progress-or
                 readOnly: true
               - name: backup
                 mountPath: /data/smart-progress-or-backups

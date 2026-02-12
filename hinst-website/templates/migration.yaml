@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: hinst-website-migration-01
+  name: hinst-website-migration
 spec:
   suspend: true
   backoffLimit: 0

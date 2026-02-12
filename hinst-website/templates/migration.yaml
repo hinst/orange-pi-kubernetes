@@ -8,14 +8,15 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       containers:
         - name: hinst-website-migration
           image: hinst/hinst-website:latest
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
           args: ["--mode=migrate"]
           envFrom:
             - secretRef:

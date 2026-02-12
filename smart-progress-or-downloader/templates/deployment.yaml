@@ -11,14 +11,15 @@ spec:
       template:
         spec:
           restartPolicy: Never
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
           containers:
             - name: downloader
               image: hinst/smart-progress-do-downloader:latest
               imagePullPolicy: Always
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
               envFrom:
                 - configMapRef:
                     name: downloader-config

@@ -15,32 +15,33 @@ spec:
       labels:
         app: web-router
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       volumes:
-      - name: web-router-config
-        configMap:
-          name: web-router-config
-      - name: web-router-files
-        configMap:
-          name: web-router-files
-      containers:
-      - name: caddy
-        image: hinst/orange-caddy:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
-        volumeMounts:
         - name: web-router-config
-          mountPath: /etc/caddy
+          configMap:
+            name: web-router-config
         - name: web-router-files
-          mountPath: /usr/share/caddy
-        resources:
-          requests:
-            cpu: 1m
-            memory: 1
-          limits:
-            cpu: 1
-            memory: 200Mi
+          configMap:
+            name: web-router-files
+      containers:
+        - name: caddy
+          image: hinst/orange-caddy:latest
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: web-router-config
+              mountPath: /etc/caddy
+            - name: web-router-files
+              mountPath: /usr/share/caddy
+          resources:
+            requests:
+              cpu: 1m
+              memory: 1
+            limits:
+              cpu: 1
+              memory: 200Mi

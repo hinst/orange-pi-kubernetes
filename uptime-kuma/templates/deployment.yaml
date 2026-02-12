@@ -15,27 +15,28 @@ spec:
       labels:
         app: uptime-kuma
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       volumes:
-      - name: uptime-kuma-data
-        persistentVolumeClaim:
-          claimName: uptime-kuma-data
-      containers:
-      - name: caddy
-        image: louislam/uptime-kuma:2
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3001
-        volumeMounts:
         - name: uptime-kuma-data
-          mountPath: /app/data
-        resources:
-          requests:
-            cpu: 1m
-            memory: 1
-          limits:
-            cpu: 1
-            memory: 200Mi
+          persistentVolumeClaim:
+            claimName: uptime-kuma-data
+      containers:
+        - name: caddy
+          image: louislam/uptime-kuma:2
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          ports:
+            - containerPort: 3001
+          volumeMounts:
+            - name: uptime-kuma-data
+              mountPath: /app/data
+          resources:
+            requests:
+              cpu: 1m
+              memory: 1
+            limits:
+              cpu: 1
+              memory: 200Mi

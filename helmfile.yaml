@@ -36,3 +36,7 @@ releases:
   chart: postgre-sql
   namespace: postgre-sql
   installed: true
+- name: prettier-server
+  chart: prettier-server
+  namespace: default
+  installed: true

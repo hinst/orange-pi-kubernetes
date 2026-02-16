@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prettier-server
+  labels:
+    app: prettier-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prettier-server
+  minReadySeconds: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: prettier-server
+    spec:
+      containers:
+        - name: prettier-server
+          image: hinst/prettier-server:latest
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 0
+              memory: 0
+            limits:
+              cpu: 1
+              memory: 100Mi

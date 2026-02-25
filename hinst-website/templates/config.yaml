@@ -5,4 +5,4 @@ metadata:
 data:
   GIT_EMAIL: "hinstance@yandex.ru"
   GIT_BOT_NAME: "hinst-bot"
-  PRETTIER_SERVER_URL: "http://prettier-server.default.svc:8080"
+  PRETTIER_SERVER_URL: "http://prettier-server.default.svc:3000"

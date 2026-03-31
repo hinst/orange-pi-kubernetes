@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: hinst-website-migration
 spec:
-  suspend: true
+  suspend: false
   backoffLimit: 0
   template:
     spec:

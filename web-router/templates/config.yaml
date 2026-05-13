@@ -9,3 +9,5 @@ data:
 {{ .Files.Get "configKeeperPassword.txt" | indent 4 }}
   adminerPassword.txt: |-
 {{ .Files.Get "adminerPassword.txt" | indent 4 }}
+  dockerRegistryPassword.txt: |-
+{{ .Files.Get "dockerRegistryPassword.txt" | indent 4 }}

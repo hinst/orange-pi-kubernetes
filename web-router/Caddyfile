@@ -26,6 +26,12 @@
 		}
 		reverse_proxy /configKeeper* config-keeper.config-keeper.svc:8080
 	}
+	handle /v2* {
+		basic_auth {
+			import dockerRegistryPassword.txt
+		}
+		reverse_proxy /v2* docker-registry-service.default.svc:5000
+	}
 	file_server
 	log
 }

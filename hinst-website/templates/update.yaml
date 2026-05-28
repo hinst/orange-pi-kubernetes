@@ -21,7 +21,7 @@ spec:
                 secretName: hinst-website-secret-files
           containers:
             - name: hinst-website-update
-              image: hinst/hinst-website:latest
+              image: 192.168.0.23:30001/hinst/hinst-website:latest
               imagePullPolicy: Always
               securityContext:
                 allowPrivilegeEscalation: false

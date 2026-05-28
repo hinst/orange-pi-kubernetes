@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: hinst-website-migration
+  name: hinst-website-migration-1
 spec:
   suspend: true
   backoffLimit: 0
@@ -10,7 +10,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: hinst-website-migration
-          image: hinst/hinst-website:latest
+          image: 192.168.0.23:30001/hinst/hinst-website:latest
           imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false

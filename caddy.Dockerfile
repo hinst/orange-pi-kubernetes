@@ -1,5 +1,6 @@
 FROM --platform=linux/aarch64 caddy:builder AS builder
-RUN xcaddy build --with github.com/mholt/caddy-ratelimit
+ENV GOCACHE=/root/.cache/go-build
+RUN --mount=type=cache,target="/root/.cache/go-build" xcaddy build --with github.com/mholt/caddy-ratelimit
 
 FROM --platform=linux/aarch64 caddy:latest
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy

@@ -28,6 +28,7 @@ releases:
   chart: adminer
   namespace: smart-progress-or
   installed: true
+
 - name: uptime-kuma
   chart: uptime-kuma
   namespace: uptime-kuma

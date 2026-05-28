@@ -1,1 +1,1 @@
-docker build -t hinst/adminer --progress=plain --platform=linux/arm64 .
+docker build -t 192.168.0.23:30001/hinst/adminer --progress=plain --platform=linux/arm64 .

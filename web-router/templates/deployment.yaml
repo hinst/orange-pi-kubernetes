@@ -26,7 +26,7 @@ spec:
             name: web-router-files
       containers:
         - name: caddy
-          image: 192.168.0.23:30001/hinst/orange-caddy:latest
+          image: localhost:5000/hinst/orange-caddy:latest
           imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false

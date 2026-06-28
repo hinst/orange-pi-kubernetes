@@ -1,7 +1,7 @@
 {
 	order rate_limit before basicauth
 }
-:30001 {
+:30002 {
 	encode zstd gzip
 	root * /usr/share/caddy
 	rate_limit {

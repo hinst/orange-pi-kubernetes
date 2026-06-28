@@ -34,7 +34,7 @@ spec:
             runAsUser: 1000
             runAsGroup: 1000
           ports:
-            - containerPort: 30001
+            - containerPort: 30002
           volumeMounts:
             - name: web-router-config
               mountPath: /etc/caddy

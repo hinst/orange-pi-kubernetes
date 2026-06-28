@@ -10,6 +10,7 @@
 			events 100
 			window 1s
 		}
+		except remote_ip 192.168.0.31
 	}
 	reverse_proxy /smartProgress-or* web-ui.smart-progress-or.svc:8080
 	reverse_proxy /hinst-website* hinst-website.smart-progress-or.svc:8080

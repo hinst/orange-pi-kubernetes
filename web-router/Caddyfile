@@ -4,13 +4,16 @@
 :30001 {
 	encode zstd gzip
 	root * /usr/share/caddy
-	rate_limit {
+
+    @not_whitelisted {
+        not remote_ip 192.168.0.0/16
+    }
+	rate_limit @not_whitelisted {
 		zone dynamic_zone {
 			key static
 			events 100
 			window 1s
 		}
-		except remote_ip 192.168.0.31
 	}
 	reverse_proxy /smartProgress-or* web-ui.smart-progress-or.svc:8080
 	reverse_proxy /hinst-website* hinst-website.smart-progress-or.svc:8080

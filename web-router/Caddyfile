@@ -2,7 +2,10 @@
 	order rate_limit before basicauth
 }
 :30001 {
-	encode zstd gzip
+	encode {
+		zstd fastest
+		gzip 1
+	}
 	root * /usr/share/caddy
 
     @not_whitelisted {

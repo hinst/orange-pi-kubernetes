@@ -40,6 +40,11 @@ spec:
               mountPath: /etc/caddy
             - name: web-router-files
               mountPath: /usr/share/caddy
+          env:
+            - name: GOMEMLIMIT
+              value: "150MiB"
+            - name: GOGC
+              value: "20"
           resources:
             requests:
               cpu: 1m

@@ -8,14 +8,6 @@ spec:
     - web
   routes:
     # ---- public routes (rate-limited) ----
-    - match: Host(`192.168.0.23`) && PathPrefix(`/smartProgress-or`)
-      kind: Rule
-      middlewares:
-        - name: rate-limit
-      services:
-        - name: web-ui
-          namespace: smart-progress-or
-          port: 8080
     - match: Host(`192.168.0.23`) && PathPrefix(`/hinst-website`)
       kind: Rule
       middlewares:
@@ -43,12 +35,4 @@ spec:
         - name: adminer
           namespace: smart-progress-or
           port: 8080
-    - match: Host(`192.168.0.23`) && PathPrefix(`/configKeeper`)
-      kind: Rule
-      middlewares:
-        - name: rate-limit
-        - name: configkeeper-auth
-      services:
-        - name: config-keeper
-          namespace: config-keeper
-          port: 8080
+

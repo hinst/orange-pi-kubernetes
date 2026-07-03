@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-auth
+  namespace: kube-system
+spec:
+  basicAuth:
+    secret: traefik-auth
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: traefik-auth
+  namespace: kube-system
+type: Opaque
+stringData:
+  users.txt: |
+    admin:{{ .Files.Get "traefikPassword.txt" }}

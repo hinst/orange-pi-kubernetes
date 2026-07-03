@@ -7,7 +7,15 @@ spec:
   entryPoints:
     - web
   routes:
-    # ---- public routes (rate-limited) ----
+    # ---- public routes ----
+    # Bypass rate limit for hinst-website when accessed from 192.168.0.31
+    - match: Host(`192.168.0.31`) && PathPrefix(`/hinst-website`)
+      kind: Rule
+      services:
+        - name: hinst-website
+          namespace: smart-progress-or
+          port: 8080
+    # Rate-limited fallback for hinst-website (all other hosts)
     - match: PathPrefix(`/hinst-website`)
       kind: Rule
       middlewares:

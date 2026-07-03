@@ -8,7 +8,7 @@ spec:
     - web
   routes:
     # ---- public routes (rate-limited) ----
-    - match: Host(`192.168.0.23`) && PathPrefix(`/hinst-website`)
+    - match: PathPrefix(`/hinst-website`)
       kind: Rule
       middlewares:
         - name: rate-limit
@@ -16,7 +16,7 @@ spec:
         - name: hinst-website
           namespace: smart-progress-or
           port: 8080
-    - match: Host(`192.168.0.23`) && PathPrefix(`/web-counter`)
+    - match: PathPrefix(`/web-counter`)
       kind: Rule
       middlewares:
         - name: rate-limit
@@ -26,7 +26,7 @@ spec:
           port: 8080
 
     # ---- protected routes (rate-limited + basic auth) ----
-    - match: Host(`192.168.0.23`) && PathPrefix(`/adminer`)
+    - match: PathPrefix(`/adminer`)
       kind: Rule
       middlewares:
         - name: rate-limit

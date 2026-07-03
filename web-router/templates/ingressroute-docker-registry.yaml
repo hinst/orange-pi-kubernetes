@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`192.168.0.23`) && PathPrefix(`/v2`)
+    - match: PathPrefix(`/v2`)
       kind: Rule
       middlewares:
         - name: docker-registry-auth

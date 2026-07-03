@@ -1,0 +1,54 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web-router
+  namespace: smart-progress-or
+spec:
+  entryPoints:
+    - web
+  routes:
+    # ---- public routes (rate-limited) ----
+    - match: Host(`192.168.0.23`) && PathPrefix(`/smartProgress-or`)
+      kind: Rule
+      middlewares:
+        - name: rate-limit
+      services:
+        - name: web-ui
+          namespace: smart-progress-or
+          port: 8080
+    - match: Host(`192.168.0.23`) && PathPrefix(`/hinst-website`)
+      kind: Rule
+      middlewares:
+        - name: rate-limit
+      services:
+        - name: hinst-website
+          namespace: smart-progress-or
+          port: 8080
+    - match: Host(`192.168.0.23`) && PathPrefix(`/web-counter`)
+      kind: Rule
+      middlewares:
+        - name: rate-limit
+      services:
+        - name: web-counter
+          namespace: smart-progress-or
+          port: 8080
+
+    # ---- protected routes (rate-limited + basic auth) ----
+    - match: Host(`192.168.0.23`) && PathPrefix(`/adminer`)
+      kind: Rule
+      middlewares:
+        - name: rate-limit
+        - name: adminer-auth
+      services:
+        - name: adminer
+          namespace: smart-progress-or
+          port: 8080
+    - match: Host(`192.168.0.23`) && PathPrefix(`/configKeeper`)
+      kind: Rule
+      middlewares:
+        - name: rate-limit
+        - name: configkeeper-auth
+      services:
+        - name: config-keeper
+          namespace: config-keeper
+          port: 8080

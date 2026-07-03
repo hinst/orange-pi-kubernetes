@@ -1,0 +1,8 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: configkeeper-auth
+  namespace: smart-progress-or
+spec:
+  basicAuth:
+    secret: configkeeper-auth

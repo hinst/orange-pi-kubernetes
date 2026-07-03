@@ -1,5 +1,6 @@
 apiVersion: v2
 name: web-router
-description: Web router for Orange Pi 2W deployment
+description: Traefik IngressRoute-based web router for Orange Pi 2W k3s deployment
 type: application
-version: 0.1.0
+version: 0.2.0
+appVersion: "1.0.0"

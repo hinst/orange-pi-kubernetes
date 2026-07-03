@@ -9,7 +9,7 @@ spec:
   routes:
     # ---- public routes ----
     # Bypass rate limit for hinst-website when accessed from 192.168.0.31
-    - match: Host(`192.168.0.31`) && PathPrefix(`/hinst-website`)
+    - match: Host(`192.168.0.23`) && PathPrefix(`/hinst-website`)
       kind: Rule
       services:
         - name: hinst-website

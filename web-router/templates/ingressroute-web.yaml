@@ -11,6 +11,8 @@ spec:
     # Bypass rate limit for hinst-website when accessed from 192.168.0.31
     - match: Host(`192.168.0.23`) && PathPrefix(`/hinst-website`)
       kind: Rule
+      middlewares:
+        - name: compress
       services:
         - name: hinst-website
           namespace: smart-progress-or
@@ -19,6 +21,7 @@ spec:
     - match: PathPrefix(`/hinst-website`)
       kind: Rule
       middlewares:
+        - name: compress
         - name: rate-limit
       services:
         - name: hinst-website

@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: compress
+  namespace: smart-progress-or
+spec:
+  compress:
+    excludedContentTypes:
+      - image/jpeg
+      - image/png
+      - image/webp
+      - image/gif
+      - video/*

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: hinst-website
-          image: 192.168.0.23:30001/hinst/hinst-website:latest
+          image: localhost:5000/hinst/hinst-website:latest
           imagePullPolicy: Always
           args: ["--allowOrigin=https://hinst.github.io"]
           securityContext:

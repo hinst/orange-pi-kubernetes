@@ -2,7 +2,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: docker-registry-router
-  namespace: default
 spec:
   entryPoints:
     - web
@@ -13,5 +12,4 @@ spec:
         - name: docker-registry-auth
       services:
         - name: docker-registry-service
-          namespace: default
           port: 5000

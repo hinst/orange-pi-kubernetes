@@ -1,1 +1,1 @@
-Fully rename namespace `smart-progress-or` to `hinst-website`. Use subagents for subtasks, scouting, changes and reviews.
+Refactoring namespaces. Check helmfile and remove redundant namespace definitions whenever the referencing helmfile already specifies the namespace, if it makes sense.

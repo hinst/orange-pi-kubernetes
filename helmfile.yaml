@@ -31,11 +31,11 @@ releases:
 
 - name: uptime-kuma
   chart: uptime-kuma
-  namespace: uptime-kuma
+  namespace: default
   installed: true
 - name: postgre-sql
   chart: postgre-sql
-  namespace: postgre-sql
+  namespace: default
   installed: true
 - name: prettier-server
   chart: prettier-server

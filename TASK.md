@@ -1,1 +1,1 @@
-Refactoring namespaces. Check helmfile and remove redundant namespace definitions whenever the referencing helmfile already specifies the namespace, if it makes sense.
+Refactoring namespaces. We want to have fewer namespaces. Move `uptime-kuma` and `postgre-sql` into namespace `default`

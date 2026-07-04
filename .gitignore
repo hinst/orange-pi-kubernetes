@@ -5,3 +5,4 @@
 /hinst-website/postgresUrl.txt
 /hinst-website-storage/postgresPassword.txt
 /web-router/dockerRegistryPassword.txt
+/.pi-subagents

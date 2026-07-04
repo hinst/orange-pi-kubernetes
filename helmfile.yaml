@@ -10,23 +10,23 @@ releases:
 
 - name: smart-progress-or-downloader
   chart: smart-progress-or-downloader
-  namespace: smart-progress-or
+  namespace: hinst-website
   installed: true
 - name: hinst-website-storage
   chart: hinst-website-storage
-  namespace: smart-progress-or
+  namespace: hinst-website
   installed: true
 - name: hinst-website
   chart: hinst-website
-  namespace: smart-progress-or
+  namespace: hinst-website
   installed: true
 - name: web-counter
   chart: web-counter
-  namespace: smart-progress-or
+  namespace: hinst-website
   installed: true
 - name: adminer
   chart: adminer
-  namespace: smart-progress-or
+  namespace: hinst-website
   installed: true
 
 - name: uptime-kuma

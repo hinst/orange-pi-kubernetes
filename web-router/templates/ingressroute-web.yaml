@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: web-router
-  namespace: smart-progress-or
+  namespace: hinst-website
 spec:
   entryPoints:
     - web
@@ -15,7 +15,7 @@ spec:
         - name: compress
       services:
         - name: hinst-website
-          namespace: smart-progress-or
+          namespace: hinst-website
           port: 8080
     # Rate-limited fallback for hinst-website (all other hosts)
     - match: PathPrefix(`/hinst-website`)
@@ -25,7 +25,7 @@ spec:
         - name: rate-limit
       services:
         - name: hinst-website
-          namespace: smart-progress-or
+          namespace: hinst-website
           port: 8080
     - match: PathPrefix(`/web-counter`)
       kind: Rule
@@ -33,7 +33,7 @@ spec:
         - name: rate-limit
       services:
         - name: web-counter
-          namespace: smart-progress-or
+          namespace: hinst-website
           port: 8080
 
     # ---- protected routes (rate-limited + basic auth) ----
@@ -44,7 +44,7 @@ spec:
         - name: adminer-auth
       services:
         - name: adminer
-          namespace: smart-progress-or
+          namespace: hinst-website
           port: 8080
 
 ---

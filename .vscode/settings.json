@@ -13,6 +13,7 @@
 		"postgre",
 		"postgres",
 		"postgresql",
-		"redir"
+		"redir",
+		"traefik"
 	]
 }

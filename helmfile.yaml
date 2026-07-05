@@ -26,7 +26,7 @@ releases:
   installed: true
 - name: adminer
   chart: adminer
-  namespace: hinst-website
+  namespace: default
   installed: true
 
 - name: uptime-kuma

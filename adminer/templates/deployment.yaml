@@ -23,7 +23,7 @@ spec:
       volumes:
         - name: web-counter
           persistentVolumeClaim:
-            claimName: web-counter
+            claimName: adminer-web-counter
       containers:
       - name: adminer
         image: localhost:5000/hinst/adminer

@@ -1,1 +1,0 @@
-Refactoring namespaces. We want to have fewer namespaces. Move `uptime-kuma` and `postgre-sql` into namespace `default`

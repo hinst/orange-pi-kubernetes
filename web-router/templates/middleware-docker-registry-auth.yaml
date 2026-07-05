@@ -1,7 +1,0 @@
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: docker-registry-auth
-spec:
-  basicAuth:
-    secret: docker-registry-auth

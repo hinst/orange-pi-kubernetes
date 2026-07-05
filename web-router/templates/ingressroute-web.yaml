@@ -36,15 +36,22 @@ spec:
           namespace: hinst-website
           port: 8080
 
-    # ---- protected routes (rate-limited + basic auth) ----
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: adminer
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
     - match: PathPrefix(`/adminer`)
       kind: Rule
       middlewares:
-        - name: rate-limit
         - name: adminer-auth
       services:
         - name: adminer
-          namespace: hinst-website
           port: 8080
 
 ---

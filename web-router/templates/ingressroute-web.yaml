@@ -8,7 +8,7 @@ spec:
     - web
   routes:
     # ---- public routes ----
-    # Bypass rate limit for hinst-website when accessed from 192.168.0.31
+    # Bypass rate limit for hinst-website when accessed from local network
     - match: Host(`192.168.0.23`) && PathPrefix(`/hinst-website`)
       kind: Rule
       middlewares:

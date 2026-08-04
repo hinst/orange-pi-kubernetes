@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: commit-history-script
+data:
+  commit-history.sh: |-
+{{ .Files.Get "commit-history.sh" | indent 4 }}

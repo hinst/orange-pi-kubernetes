@@ -39,7 +39,7 @@ spec:
               value: /repos
           volumeMounts:
             - name: history
-              mountPath: /repos
+              mountPath: /repos/git-history
               readOnly: true
           resources:
             requests:

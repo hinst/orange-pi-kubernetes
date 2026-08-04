@@ -110,4 +110,6 @@ spec:
               command: ["sh", "-c"]
               args:
                 - |
+                  set -e
+                  rm -f /history/dump.sql
                   echo "=== History backup completed ==="

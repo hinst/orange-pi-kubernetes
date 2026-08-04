@@ -25,7 +25,7 @@ spec:
         - name: git-ui-klaus
           image: jonashaag/klaus:latest
           command: ["klaus"]
-          args: ["/repos", "--host", "0.0.0.0"]
+          args: ["--host", "0.0.0.0", "/repos/git-history"]
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true

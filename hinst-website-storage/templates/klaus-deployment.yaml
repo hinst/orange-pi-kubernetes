@@ -24,6 +24,8 @@ spec:
       containers:
         - name: git-ui-klaus
           image: jonashaag/klaus:latest
+          command: ["klaus"]
+          args: ["/repos", "--host", "0.0.0.0"]
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true

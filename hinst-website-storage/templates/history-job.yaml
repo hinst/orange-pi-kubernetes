@@ -89,3 +89,10 @@ spec:
                 limits:
                   cpu: "1"
                   memory: 1Gi
+          containers:
+            - name: backup-complete
+              image: alpine:latest
+              command: ["sh", "-c"]
+              args:
+                - |
+                  echo "=== History backup completed ==="

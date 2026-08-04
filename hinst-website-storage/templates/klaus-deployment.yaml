@@ -43,11 +43,11 @@ spec:
               readOnly: true
           resources:
             requests:
-              cpu: 1m
-              memory: 50Mi
+              cpu: 0
+              memory: 0
             limits:
-              cpu: "2"
-              memory: 300Mi
+              cpu: 1
+              memory: 1Gi
       volumes:
         - name: history
           persistentVolumeClaim:

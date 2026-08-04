@@ -25,7 +25,7 @@ spec:
         - name: git-ui-klaus
           image: jonashaag/klaus:latest
           command: ["klaus"]
-          args: ["--host", "0.0.0.0", "/repos/git-history"]
+          args: ["--host", "0.0.0.0", "/repos/hinst-website-history"]
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
@@ -39,7 +39,7 @@ spec:
               value: /repos
           volumeMounts:
             - name: history
-              mountPath: /repos/git-history
+              mountPath: /repos/hinst-website-history
               readOnly: true
           resources:
             requests:

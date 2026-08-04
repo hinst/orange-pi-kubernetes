@@ -1,0 +1,115 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hinst-website-history-backup
+spec:
+  schedule: "0 0 * * SUN"
+  suspend: false
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          volumes:
+            - name: history
+              persistentVolumeClaim:
+                claimName: hinst-website-history
+          initContainers:
+            # Step 1 — dump SQL from PostgreSQL (no compression)
+            - name: pg-dump
+              image: postgres:18
+              command: ["/bin/bash", "-c"]
+              args:
+                - |
+                  set -ex
+
+                  echo "=== Dumping database hinst-website ==="
+                  pg_dump \
+                    --dbname=hinst-website \
+                    --host postgre-sql.default.svc \
+                    --port 5432 \
+                    --username hinst_website \
+                    --file=/history/dump.sql \
+                    --clean --if-exists --verbose
+
+              envFrom:
+                - secretRef:
+                    name: backup-secret
+              volumeMounts:
+                - name: history
+                  mountPath: /history
+              resources:
+                requests:
+                  cpu: "0"
+                  memory: "0"
+                limits:
+                  cpu: "1"
+                  memory: 1Gi
+
+            # Step 2 — split dump.sql into per-object files under data/
+            - name: split-dump
+              image: localhost:5000/hinst/postgresql-split
+              args: ["/history/dump.sql"]
+              workingDir: "/history"
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
+              volumeMounts:
+                - name: history
+                  mountPath: /history
+              resources:
+                requests:
+                  cpu: "0"
+                  memory: "0"
+                limits:
+                  cpu: "1"
+                  memory: 512Mi
+
+            # Step 3 — commit split files to local git repository
+            - name: git-commit
+              image: docker.io/library/alpine:latest
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -ex
+
+                  echo "=== Installing git ==="
+                  apk add --no-cache git || true
+
+                  cd /history
+
+                  if [ ! -d .git ]; then
+                    echo "Initializing new repository..."
+                    git init
+                    git config user.name "backup-bot"
+                    git config user.email "hinstance@yandex.ru"
+                  fi
+
+                  TIMESTAMP="$(date +%Y-%m-%d\ %H-%M-%S)"
+                  echo "=== Committing: Automated backup at $TIMESTAMP ==="
+
+                  git add -A
+                  # git commit may fail if nothing changed (e.g. on first run with identical dump)
+                  git commit \
+                    --message="Automated backup at $TIMESTAMP" \
+                    || echo "No changes to commit — skipping."
+
+                  echo "=== Running git gc ==="
+                  git gc --aggressive
+
+                  echo "$(date) Completed successfully"
+                  ls -la /history/
+              volumeMounts:
+                - name: history
+                  mountPath: /history
+              resources:
+                requests:
+                  cpu: "0"
+                  memory: "0"
+                limits:
+                  cpu: "1"
+                  memory: 512Mi

@@ -24,6 +24,11 @@ spec:
             # Step 1 — dump SQL from PostgreSQL (no compression)
             - name: pg-dump
               image: postgres:18
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
               command: ["/bin/bash", "-c"]
               args:
                 - |

@@ -60,13 +60,13 @@ spec:
             # Step 2 — split dump.sql into per-object files under data/
             - name: split-dump
               image: localhost:5000/hinst/postgresql-split
-              args: ["/history/dump.sql"]
-              workingDir: "/history"
               securityContext:
                 allowPrivilegeEscalation: false
                 runAsNonRoot: true
                 runAsUser: 1000
                 runAsGroup: 1000
+              args: ["/history/dump.sql"]
+              workingDir: "/history"
               volumeMounts:
                 - name: history
                   mountPath: /history
@@ -81,6 +81,11 @@ spec:
             # Step 3 — commit split files to local git repository
             - name: git-commit
               image: docker.io/library/alpine:latest
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
               command: ["/bin/sh", "/scripts/commit-history.sh"]
               volumeMounts:
                 - name: history
@@ -97,6 +102,11 @@ spec:
           containers:
             - name: backup-complete
               image: alpine:latest
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
               command: ["sh", "-c"]
               args:
                 - |

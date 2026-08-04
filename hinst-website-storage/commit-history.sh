@@ -27,3 +27,6 @@ git gc --aggressive
 
 echo "$(date) Completed successfully"
 ls -la /history/
+
+echo "=== Latest commits ==="
+git log --oneline -5

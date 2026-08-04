@@ -12,12 +12,11 @@ spec:
       template:
         spec:
           restartPolicy: Never
-          configMaps:
-            - name: commit-history-script
-              items:
-                - key: commit-history.sh
-                  path: commit-history.sh
           volumes:
+            - name: commit-history-script
+              configMap:
+                name: commit-history-script
+                defaultMode: 0755
             - name: history
               persistentVolumeClaim:
                 claimName: hinst-website-history

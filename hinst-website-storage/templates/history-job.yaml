@@ -77,9 +77,7 @@ spec:
             # Step 3 — commit split files to local git repository
             - name: git-commit
               image: docker.io/library/alpine:latest
-              command: ["/bin/sh", "-c"]
-              args:
-                - sh /scripts/commit-history.sh
+              command: ["/bin/sh", "/scripts/commit-history.sh"]
               volumeMounts:
                 - name: history
                   mountPath: /history

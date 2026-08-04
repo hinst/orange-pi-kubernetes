@@ -67,7 +67,7 @@ spec:
                   memory: "0"
                 limits:
                   cpu: "1"
-                  memory: 512Mi
+                  memory: 1Gi
 
             # Step 3 — commit split files to local git repository
             - name: git-commit
@@ -112,4 +112,4 @@ spec:
                   memory: "0"
                 limits:
                   cpu: "1"
-                  memory: 512Mi
+                  memory: 1Gi

@@ -1,9 +1,5 @@
 #!/bin/sh
 set -ex
-
-echo "=== Installing git ==="
-apk add --no-cache git || true
-
 cd /history
 
 if [ ! -d .git ]; then

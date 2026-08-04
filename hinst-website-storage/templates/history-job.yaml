@@ -80,7 +80,7 @@ spec:
 
             # Step 3 — commit split files to local git repository
             - name: git-commit
-              image: docker.io/library/alpine:latest
+              image: docker.io/alpinelinux/git:latest
               securityContext:
                 allowPrivilegeEscalation: false
                 runAsNonRoot: true

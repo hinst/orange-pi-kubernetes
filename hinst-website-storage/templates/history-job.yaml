@@ -86,7 +86,7 @@ spec:
                 runAsNonRoot: true
                 runAsUser: 1000
                 runAsGroup: 1000
-              command: ["/bin/sh", "/scripts/commit-history.sh"]
+              command: ["/bin/sh", "-c", "rm -f /history/dump.sql && /scripts/commit-history.sh"]
               volumeMounts:
                 - name: history
                   mountPath: /history
@@ -111,7 +111,6 @@ spec:
               args:
                 - |
                   set -e
-                  rm -f /history/dump.sql
                   echo "=== History backup completed ==="
               volumeMounts:
                 - name: history

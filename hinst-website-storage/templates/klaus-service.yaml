@@ -6,10 +6,10 @@ metadata:
   labels:
     app: git-ui-klaus
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: git-ui-klaus
   ports:
     - port: 8080
-      targetPort: 8080
+      nodePort: 30001
       protocol: TCP

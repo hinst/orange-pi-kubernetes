@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: git-ui-klaus
+  name: git-ui-gitweb
   namespace: hinst-website
   labels:
-    app: git-ui-klaus
+    app: git-ui-gitweb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: git-ui-klaus
+      app: git-ui-gitweb
   minReadySeconds: 1
   strategy:
     type: RollingUpdate
@@ -19,27 +19,24 @@ spec:
   template:
     metadata:
       labels:
-        app: git-ui-klaus
+        app: git-ui-gitweb
     spec:
       containers:
-        - name: git-ui-klaus
-          image: jonashaag/klaus:latest
-          command: ["klaus"]
-          args: ["--host", "0.0.0.0", "/repos/hinst-website-history"]
+        - name: git-ui-gitweb
+          image: mlan/gitweb
           securityContext:
             allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           env:
-            - name: KLAUS_REPOS
-              value: /repos
+            - name: PROJECTROOT
+              value: /var/lib/git/repositories
+            - name: PROJECTS_LIST
+              value: ""
           volumeMounts:
             - name: history
-              mountPath: /repos/hinst-website-history
+              mountPath: /var/lib/git/repositories/hinst-website-history
               readOnly: true
           resources:
             requests:

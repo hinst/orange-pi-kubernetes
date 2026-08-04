@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: hinst-website-history-backup
 spec:
-  schedule: "0 0 * * SUN"
+  schedule: "0 1 * * SUN"
   suspend: false
   concurrencyPolicy: Forbid
   jobTemplate:

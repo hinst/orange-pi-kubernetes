@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: git-ui-gitweb
-          image: localhost:5000/mlan/gitweb
+          image: localhost:5000/mlan/docker-gitweb:latest
           imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false

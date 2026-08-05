@@ -10,7 +10,7 @@ if [ ! -d .git ]; then
 fi
 
 TIMESTAMP="$(date +%Y-%m-%d\ %H-%M-%S)"
-echo Committing: Automated backup at $TIMESTAMP"
+echo "Committing: Automated backup at $TIMESTAMP"
 
 git add -A
 # git commit may fail if nothing changed (e.g. on first run with identical dump)
@@ -18,7 +18,7 @@ git commit \
   --message="Automated backup at $TIMESTAMP" \
   || echo "No changes to commit — skipping."
 
-echo Running git gc"
+echo "Running git gc"
 git gc
 
 echo "$(date) Completed successfully"

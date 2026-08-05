@@ -28,8 +28,14 @@ spec:
                 runAsNonRoot: true
                 runAsUser: 1000
                 runAsGroup: 1000
-              command: ["rm"]
-              args: ["-r", "-f", "db"]
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  if [ -d db ]; then
+                    rm -rf db && echo "Directory 'db' got deleted successfully"
+                  else
+                    echo "Directory 'db' does not exist, nothing to delete"
+                  fi
               workingDir: "/history"
               volumeMounts:
                 - name: history

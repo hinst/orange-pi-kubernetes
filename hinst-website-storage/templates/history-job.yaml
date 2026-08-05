@@ -30,7 +30,7 @@ spec:
                 runAsGroup: 1000
               command: ["rm"]
               args:
-                ["-r -f db"]
+                ["-r", "-f", "db"]
               workingDir: "/history"
               volumeMounts:
                 - name: history

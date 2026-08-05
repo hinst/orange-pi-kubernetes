@@ -21,51 +21,17 @@ spec:
               persistentVolumeClaim:
                 claimName: hinst-website-history
           initContainers:
-            # Step 1 — dump SQL from PostgreSQL (no compression)
-            - name: pg-dump
-              image: postgres:18
-              securityContext:
-                allowPrivilegeEscalation: false
-                runAsNonRoot: true
-                runAsUser: 1000
-                runAsGroup: 1000
-              command: ["/bin/bash", "-c"]
-              args:
-                - |
-                  set -ex
-
-                  echo "=== Dumping database hinst-website ==="
-                  pg_dump \
-                    --dbname=hinst-website \
-                    --host postgre-sql.default.svc \
-                    --port 5432 \
-                    --username hinst_website \
-                    --file=/history/dump.sql \
-                    --clean --if-exists --verbose
-
-              envFrom:
-                - secretRef:
-                    name: backup-secret
-              volumeMounts:
-                - name: history
-                  mountPath: /history
-              resources:
-                requests:
-                  cpu: "0"
-                  memory: "0"
-                limits:
-                  cpu: "1"
-                  memory: 1Gi
-
-            # Step 2 — split dump.sql into per-object files under data/
-            - name: split-dump
+            # Delete data
+            - name: clean
               image: localhost:5000/hinst/postgresql-split
               securityContext:
                 allowPrivilegeEscalation: false
                 runAsNonRoot: true
                 runAsUser: 1000
                 runAsGroup: 1000
-              args: ["/history/dump.sql"]
+              command: ["rm"]
+              args:
+                ["-r -f db"]
               workingDir: "/history"
               volumeMounts:
                 - name: history
@@ -78,7 +44,31 @@ spec:
                   cpu: "1"
                   memory: 1Gi
 
-            # Step 3 — commit split files to local git repository
+            # Write backup
+            - name: backup
+              image: localhost:5000/hinst/hinst-website:latest
+              securityContext:
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                runAsUser: 1000
+                runAsGroup: 1000
+              args:
+                ["--mode=backup", "--backup-directory=/history/db"]
+              envFrom:
+                - secretRef:
+                    name: hinst-website-secret-values
+              volumeMounts:
+                - name: history
+                  mountPath: /history
+              resources:
+                requests:
+                  cpu: "0"
+                  memory: "0"
+                limits:
+                  cpu: "1"
+                  memory: 1Gi
+
+            # Commit
             - name: git-commit
               image: alpine/git
               securityContext:
@@ -86,7 +76,7 @@ spec:
                 runAsNonRoot: true
                 runAsUser: 1000
                 runAsGroup: 1000
-              command: ["/bin/sh", "-c", "rm -f /history/dump.sql && /scripts/commit-history.sh"]
+              command: ["/bin/sh", "/scripts/commit-history.sh"]
               volumeMounts:
                 - name: history
                   mountPath: /history
@@ -111,7 +101,7 @@ spec:
               args:
                 - |
                   set -e
-                  echo "=== History backup completed ==="
+                  echo History backup completed
               volumeMounts:
                 - name: history
                   mountPath: /history

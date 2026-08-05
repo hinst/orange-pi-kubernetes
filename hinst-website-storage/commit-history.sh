@@ -1,5 +1,5 @@
 #!/bin/sh
-set -ex
+set -e
 cd /history
 
 if [ ! -d .git ]; then

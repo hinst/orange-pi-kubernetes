@@ -21,7 +21,7 @@ spec:
               persistentVolumeClaim:
                 claimName: hinst-website-history
           initContainers:
-            - name: clean
+            - name: 0-clean
               image: alpine
               securityContext:
                 allowPrivilegeEscalation: false
@@ -43,8 +43,9 @@ spec:
                   cpu: "1"
                   memory: 1Gi
 
-            - name: backup
+            - name: 1-backup
               image: localhost:5000/hinst/hinst-website:latest
+              imagePullPolicy: Always
               securityContext:
                 allowPrivilegeEscalation: false
                 runAsNonRoot: true
@@ -71,7 +72,7 @@ spec:
                   cpu: "1"
                   memory: 1Gi
 
-            - name: git-commit
+            - name: 2-git-commit
               image: alpine/git
               securityContext:
                 allowPrivilegeEscalation: false
@@ -92,7 +93,7 @@ spec:
                   cpu: "1"
                   memory: 1Gi
           containers:
-            - name: completed
+            - name: 3-completed
               image: alpine:latest
               securityContext:
                 allowPrivilegeEscalation: false

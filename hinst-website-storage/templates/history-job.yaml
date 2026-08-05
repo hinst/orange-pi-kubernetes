@@ -21,8 +21,7 @@ spec:
               persistentVolumeClaim:
                 claimName: hinst-website-history
           initContainers:
-            # Delete data
-            - name: clean
+            - name: Clean
               image: localhost:5000/hinst/postgresql-split
               securityContext:
                 allowPrivilegeEscalation: false
@@ -44,8 +43,7 @@ spec:
                   cpu: "1"
                   memory: 1Gi
 
-            # Write backup
-            - name: backup
+            - name: Backup
               image: localhost:5000/hinst/hinst-website:latest
               securityContext:
                 allowPrivilegeEscalation: false
@@ -57,6 +55,11 @@ spec:
               envFrom:
                 - secretRef:
                     name: hinst-website-secret-values
+              env:
+                - name: GOMEMLIMIT
+                  value: "900MiB"
+                - name: GOGC
+                  value: "20"
               volumeMounts:
                 - name: history
                   mountPath: /history
@@ -68,8 +71,7 @@ spec:
                   cpu: "1"
                   memory: 1Gi
 
-            # Commit
-            - name: git-commit
+            - name: Git-Commit
               image: alpine/git
               securityContext:
                 allowPrivilegeEscalation: false
@@ -90,7 +92,7 @@ spec:
                   cpu: "1"
                   memory: 1Gi
           containers:
-            - name: backup-complete
+            - name: Completed
               image: alpine:latest
               securityContext:
                 allowPrivilegeEscalation: false

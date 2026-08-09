@@ -24,7 +24,7 @@ spec:
         - name: hinst-website
           image: localhost:5000/hinst/hinst-website:latest
           imagePullPolicy: Always
-          args: ["--allowOrigin=https://hinst.github.io"]
+
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
@@ -41,6 +41,8 @@ spec:
             - secretRef:
                 name: hinst-website-secret-values
           env:
+            - name: ALLOW_ORIGIN
+              value: "https://hinst.github.io"
             - name: GOMEMLIMIT
               value: "150MiB"
             - name: GOGC

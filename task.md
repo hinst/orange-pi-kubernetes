@@ -1,0 +1,1 @@
+`allowOrigin` is no longer command line argument. Instead, it became environment variable `ALLOW_ORIGIN`

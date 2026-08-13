@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: git-ui-gitweb
-  namespace: hinst-website
   labels:
     app: git-ui-gitweb
 spec:

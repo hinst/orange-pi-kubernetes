@@ -38,7 +38,7 @@ spec:
                   readOnly: false
               envFrom:
                 - secretRef:
-                    name: backup-secret
+                    name: hinst-website-backup-secret
               resources:
                 requests:
                   cpu: "0"

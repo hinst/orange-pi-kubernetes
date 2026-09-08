@@ -8,10 +8,6 @@ releases:
   namespace: kubernetes-dashboard
   installed: true
 
-- name: smart-progress-or-downloader
-  chart: smart-progress-or-downloader
-  namespace: hinst-website
-  installed: true
 - name: hinst-website-storage
   chart: hinst-website-storage
   namespace: hinst-website

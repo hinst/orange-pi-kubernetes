@@ -29,7 +29,7 @@ spec:
                 runAsUser: 1000
                 runAsGroup: 1000
               args:
-                ["--mode=update", "--translatorApi=http://192.168.0.30:11434"]
+                ["--mode=update"]
               volumeMounts:
                 - name: data
                   mountPath: /app/saved-goals
@@ -45,6 +45,8 @@ spec:
               env:
                 - name: GOMEMLIMIT
                   value: "200MiB"
+                - name: AI_URL
+                  value: "http://192.168.0.30:11434"
                 - name: GOGC
                   value: "20"
                 - name: GOOGLE_ACCOUNT_JSON

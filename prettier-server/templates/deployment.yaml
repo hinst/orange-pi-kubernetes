@@ -31,10 +31,13 @@ spec:
             runAsGroup: 1000
           ports:
             - containerPort: 3000
+          env:
+            - name: BUN_JSC_forceRAMSize
+              value: "104857600" # 100 MB
           resources:
             requests:
               cpu: 0
               memory: 0
             limits:
               cpu: 1
-              memory: 100Mi
+              memory: 128Mi

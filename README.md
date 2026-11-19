@@ -17,16 +17,16 @@ All services are packaged as Helm charts and deployed together with [Helmfile](h
 | `adminer` | Database web UI behind basic auth |
 | `dashboard-account` | Service account for the Kubernetes Dashboard |
 
-Custom images are built for ARM64 and pushed to a local Docker registry (`localhost:5000`).
+Custom images are built for ARM64 and pushed to a local Docker registry (`192.168.178.29:5000`).
 Secrets (passwords, tokens) are read by Helm from local files, which are excluded from Git.
 
 ## Deploy
 
 ```bat
-deploy.bat
+node deploy.mjs
 ```
 
-Runs `helmfile apply`, then restarts the deployments that use `latest` images.
+Builds and pushes the ARM64 website image, runs `helmfile apply`, restarts the deployments that use `latest` images, then rebuilds the static frontend into `hinst.github.io/dynamic` and pushes it if changed.
 
 ## PostgreSQL memory
 

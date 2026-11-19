@@ -11,6 +11,7 @@ const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 const hinstWebsiteRoot = path.resolve(repoRoot, '..', 'hinst-website');
 const frontendRoot = path.join(hinstWebsiteRoot, 'frontend');
 const githubIoRoot = path.resolve(repoRoot, '..', 'hinst.github.io');
+const prettierServerRoot = path.resolve(repoRoot, '..', 'prettier-server');
 
 /**
 	@param {string} command
@@ -25,9 +26,11 @@ function exec(command, cwd = repoRoot) {
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'build-docker.mjs')}"`);
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'push-docker.mjs')}"`);
 
-	// Build & push the Adminer image
 	exec(`node "${path.join(repoRoot, 'adminer', 'build.mjs')}"`);
 	exec(`node "${path.join(repoRoot, 'adminer', 'push.mjs')}"`);
+
+	exec('docker build -t 192.168.0.23:5000/hinst/prettier-server --progress=plain --platform=linux/arm64 .', prettierServerRoot);
+	exec('docker push 192.168.0.23:5000/hinst/prettier-server', prettierServerRoot);
 }();
 
 +function deployKubernetes() {

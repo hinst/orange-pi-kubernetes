@@ -27,8 +27,9 @@ for (const command of [
 ])
 	exec(command);
 
-// Frontend: build into hinst.github.io/dynamic
+// Frontend: fetch latest, build into hinst.github.io/dynamic
 // (the script uses relative paths, so it must run from the frontend folder)
+exec('git pull', githubIoRoot);
 exec(`node "${path.join(frontendRoot, 'scripts', 'deploy-github-io.mjs')}"`, frontendRoot);
 
 // Commit and push if anything changed

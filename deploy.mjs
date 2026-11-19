@@ -26,19 +26,20 @@ exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'build-docker.mjs')}"`);
 exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'push-docker.mjs')}"`);
 exec('helmfile apply');
 exec('kubectl rollout restart deployment --namespace=hinst-website hinst-website');
+exec('kubectl rollout status deployment/hinst-website --namespace=hinst-website --timeout=120s');
 exec('kubectl rollout restart deployment --namespace=default adminer');
 exec('kubectl rollout restart deployment --namespace=default uptime-kuma');
 
 // Frontend: fetch latest, build into hinst.github.io/dynamic
 // (the script uses relative paths, so it must run from the frontend folder)
-exec('git pull', githubIoRoot);
+exec('git pull --ff-only', githubIoRoot);
 exec(`node "${path.join(frontendRoot, 'scripts', 'deploy-github-io.mjs')}"`, frontendRoot);
 
 // Commit and push if anything changed
 const status = execSync('git status --porcelain -- dynamic', { cwd: githubIoRoot, encoding: 'utf8' });
 if (status.trim().length > 0) {
 	exec('git add dynamic', githubIoRoot);
-	exec('git commit -m "Update frontend build"', githubIoRoot);
+	exec('git commit -m "Update dynamic frontend build"', githubIoRoot);
 	exec('git push', githubIoRoot);
 } else
 	console.log('hinst.github.io unchanged, skipping commit/push');

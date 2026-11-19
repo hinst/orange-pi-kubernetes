@@ -2,16 +2,23 @@
 // Build & push Docker images, apply Helm, and deploy the dynamic frontend
 
 import { execSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 
-// Sibling repositories:
-const hinstWebsiteRoot = path.resolve(repoRoot, '..', 'hinst-website');
-const frontendRoot = path.join(hinstWebsiteRoot, 'frontend');
-const githubIoRoot = path.resolve(repoRoot, '..', 'hinst.github.io');
-const prettierServerRoot = path.resolve(repoRoot, '..', 'prettier-server');
+/** @param {string} directory */
+function requireDirectory(directory) {
+	if (!existsSync(directory))
+		throw new Error(`Directory not found: ${directory}`);
+	return directory;
+}
+
+const hinstWebsiteRoot = requireDirectory(path.resolve(repoRoot, '..', 'hinst-website'));
+const frontendRoot = requireDirectory(path.join(hinstWebsiteRoot, 'frontend'));
+const githubIoRoot = requireDirectory(path.resolve(repoRoot, '..', 'hinst.github.io'));
+const prettierServerRoot = requireDirectory(path.resolve(repoRoot, '..', 'prettier-server'));
 
 // Local Docker registry on the Orange Pi
 const registry = '192.168.178.29:5000';

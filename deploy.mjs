@@ -1,3 +1,4 @@
+//@ts-check
 // Apply the Helmfile, restart the deployments, and deploy the frontend
 
 import { execSync } from 'node:child_process';
@@ -11,6 +12,10 @@ const hinstWebsiteRoot = path.resolve(repoRoot, '..', 'hinst-website');
 const frontendRoot = path.join(hinstWebsiteRoot, 'frontend');
 const githubIoRoot = path.resolve(repoRoot, '..', 'hinst.github.io');
 
+/**
+	@param {string} command
+	@param {string} cwd
+*/
 const exec = (command, cwd = repoRoot) => {
 	console.log(command);
 	execSync(command, { stdio: 'inherit', cwd });
@@ -33,10 +38,10 @@ exec('git pull', githubIoRoot);
 exec(`node "${path.join(frontendRoot, 'scripts', 'deploy-github-io.mjs')}"`, frontendRoot);
 
 // Commit and push if anything changed
-const status = execSync('git status --porcelain', { cwd: githubIoRoot, encoding: 'utf8' });
+const status = execSync('git status --porcelain -- dynamic', { cwd: githubIoRoot, encoding: 'utf8' });
 if (status.trim().length > 0)
 	for (const command of [
-		'git add -A',
+		'git add dynamic',
 		'git commit -m "Update frontend build"',
 		'git push',
 	])

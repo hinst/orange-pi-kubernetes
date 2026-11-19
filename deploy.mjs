@@ -1,15 +1,12 @@
 // Apply the Helmfile, restart the deployments, and deploy the frontend
-//
-// NOTE: The hinst-website repository must be checked out in a sibling
-// directory (i.e. ../hinst-website) and hinst.github.io must be a sibling
-// directory as well, so the build scripts can be accessed via the `..`
-// paths below.
 
 import { execSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.dirname(fileURLToPath(import.meta.url));
+
+// Sibling repositories:
 const hinstWebsiteRoot = path.resolve(repoRoot, '..', 'hinst-website');
 const frontendRoot = path.join(hinstWebsiteRoot, 'frontend');
 const githubIoRoot = path.resolve(repoRoot, '..', 'hinst.github.io');

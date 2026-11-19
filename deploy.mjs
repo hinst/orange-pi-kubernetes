@@ -31,7 +31,7 @@ exec('kubectl rollout restart deployment --namespace=default adminer');
 exec('kubectl rollout restart deployment --namespace=default uptime-kuma');
 
 // Frontend: fetch latest, build into hinst.github.io/dynamic
-// (the script uses relative paths, so it must run from the frontend folder)
+// (cwd must be the frontend folder, since npm run build resolves package.json from cwd)
 exec('git pull --ff-only', githubIoRoot);
 exec(`node "${path.join(frontendRoot, 'scripts', 'deploy-github-io.mjs')}"`, frontendRoot);
 

@@ -13,6 +13,9 @@ const frontendRoot = path.join(hinstWebsiteRoot, 'frontend');
 const githubIoRoot = path.resolve(repoRoot, '..', 'hinst.github.io');
 const prettierServerRoot = path.resolve(repoRoot, '..', 'prettier-server');
 
+// Local Docker registry on the Orange Pi
+const registry = '192.168.178.29:5000';
+
 /**
 	@param {string} command
 	@param {string} [cwd]
@@ -26,11 +29,11 @@ function exec(command, cwd = repoRoot) {
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'build-docker.mjs')}"`);
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'push-docker.mjs')}"`);
 
-	exec('docker build -t 192.168.178.29:5000/hinst/adminer --progress=plain --platform=linux/arm64 .', path.join(repoRoot, 'adminer'));
-	exec('docker push 192.168.178.29:5000/hinst/adminer');
+	exec(`docker build -t ${registry}/hinst/adminer --progress=plain --platform=linux/arm64 .`, path.join(repoRoot, 'adminer'));
+	exec(`docker push ${registry}/hinst/adminer`);
 
-	exec('docker build -t 192.168.178.29:5000/hinst/prettier-server --progress=plain --platform=linux/arm64 .', prettierServerRoot);
-	exec('docker push 192.168.178.29:5000/hinst/prettier-server', prettierServerRoot);
+	exec(`docker build -t ${registry}/hinst/prettier-server --progress=plain --platform=linux/arm64 .`, prettierServerRoot);
+	exec(`docker push ${registry}/hinst/prettier-server`, prettierServerRoot);
 }();
 
 +function deployKubernetes() {

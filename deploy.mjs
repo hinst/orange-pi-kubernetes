@@ -24,6 +24,10 @@ function exec(command, cwd = repoRoot) {
 +function prepareDockerImages() {
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'build-docker.mjs')}"`);
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'push-docker.mjs')}"`);
+
+	// Build & push the Adminer image
+	exec(`node "${path.join(repoRoot, 'adminer', 'build.mjs')}"`);
+	exec(`node "${path.join(repoRoot, 'adminer', 'push.mjs')}"`);
 }();
 
 +function deployKubernetes() {

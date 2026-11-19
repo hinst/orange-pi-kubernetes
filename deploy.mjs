@@ -26,8 +26,8 @@ function exec(command, cwd = repoRoot) {
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'build-docker.mjs')}"`);
 	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'push-docker.mjs')}"`);
 
-	exec(`node "${path.join(repoRoot, 'adminer', 'build.mjs')}"`);
-	exec(`node "${path.join(repoRoot, 'adminer', 'push.mjs')}"`);
+	exec('docker build -t 192.168.0.23:30001/hinst/adminer --progress=plain --platform=linux/arm64 .', path.join(repoRoot, 'adminer'));
+	exec('docker push 192.168.0.23:30001/hinst/adminer');
 
 	exec('docker build -t 192.168.0.23:5000/hinst/prettier-server --progress=plain --platform=linux/arm64 .', prettierServerRoot);
 	exec('docker push 192.168.0.23:5000/hinst/prettier-server', prettierServerRoot);

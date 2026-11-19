@@ -1,1 +1,0 @@
-docker push 192.168.0.23:30001/hinst/adminer

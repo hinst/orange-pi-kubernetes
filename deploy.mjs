@@ -1,7 +1,7 @@
 //@ts-check
 // Build & push Docker images, apply Helm, and deploy the dynamic frontend
 
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,42 +25,49 @@ const registry = '192.168.178.29:5000';
 
 /**
 	@param {string} command
+	@param {string[]} [args]
 	@param {string} [cwd]
 */
-function exec(command, cwd = repoRoot) {
-	console.log(command);
-	execSync(command, { stdio: 'inherit', cwd });
-};
+function exec(command, args = [], cwd = repoRoot) {
+	console.log([command, ...args].join(' '));
+	const result = spawnSync(command, args, { stdio: 'inherit', cwd });
+	if (result.error) throw result.error;
+	if (result.status !== 0)
+		throw new Error(`Command failed with exit code ${result.status}: ${command}`);
+}
 
 +function prepareDockerImages() {
-	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'build-docker.mjs')}"`);
-	exec(`node "${path.join(hinstWebsiteRoot, 'scripts', 'push-docker.mjs')}"`);
+	exec('node', [path.join(hinstWebsiteRoot, 'scripts', 'build-docker.mjs')]);
+	exec('node', [path.join(hinstWebsiteRoot, 'scripts', 'push-docker.mjs')]);
 
-	exec(`docker build -t ${registry}/hinst/adminer --progress=plain --platform=linux/arm64 .`, path.join(repoRoot, 'adminer'));
-	exec(`docker push ${registry}/hinst/adminer`);
+	exec('docker', ['build', '-t', `${registry}/hinst/adminer`, '--progress=plain', '--platform=linux/arm64', '.'], path.join(repoRoot, 'adminer'));
+	exec('docker', ['push', `${registry}/hinst/adminer`]);
 
-	exec(`docker build -t ${registry}/hinst/prettier-server --progress=plain --platform=linux/arm64 .`, prettierServerRoot);
-	exec(`docker push ${registry}/hinst/prettier-server`, prettierServerRoot);
+	exec('docker', ['build', '-t', `${registry}/hinst/prettier-server`, '--progress=plain', '--platform=linux/arm64', '.'], prettierServerRoot);
+	exec('docker', ['push', `${registry}/hinst/prettier-server`], prettierServerRoot);
 }();
 
 +function deployKubernetes() {
-	exec('helmfile apply');
-	exec('kubectl rollout restart deployment --namespace=hinst-website hinst-website');
-	exec('kubectl rollout status deployment/hinst-website --namespace=hinst-website --timeout=120s');
-	exec('kubectl rollout restart deployment --namespace=default adminer');
-	exec('kubectl rollout restart deployment --namespace=default uptime-kuma');
+	exec('helmfile', ['apply']);
+	exec('kubectl', ['rollout', 'restart', 'deployment', '--namespace=hinst-website', 'hinst-website']);
+	exec('kubectl', ['rollout', 'status', 'deployment/hinst-website', '--namespace=hinst-website', '--timeout=120s']);
+	exec('kubectl', ['rollout', 'restart', 'deployment', '--namespace=default', 'adminer']);
+	exec('kubectl', ['rollout', 'restart', 'deployment', '--namespace=default', 'uptime-kuma']);
 }();
 
 +function deployDynamicFrontend() {
-	exec('git pull --ff-only', githubIoRoot);
-	exec(`node "${path.join(frontendRoot, 'scripts', 'deploy-github-io.mjs')}"`, frontendRoot);
+	exec('git', ['pull', '--ff-only'], githubIoRoot);
+	exec('node', [path.join(frontendRoot, 'scripts', 'deploy-github-io.mjs')], frontendRoot);
 
 	// Commit and push if anything changed
-	const status = execSync('git status --porcelain -- dynamic', { cwd: githubIoRoot, encoding: 'utf8' });
-	if (status.trim().length > 0) {
-		exec('git add dynamic', githubIoRoot);
-		exec('git commit -m "Update dynamic frontend build"', githubIoRoot);
-		exec('git push', githubIoRoot);
+	const status = spawnSync('git', ['status', '--porcelain', '--', 'dynamic'], { cwd: githubIoRoot, encoding: 'utf8' });
+	if (status.error) throw status.error;
+	if (status.status !== 0)
+		throw new Error(`git status failed with exit code ${status.status}`);
+	if (status.stdout.trim().length > 0) {
+		exec('git', ['add', 'dynamic'], githubIoRoot);
+		exec('git', ['commit', '-m', 'Update dynamic frontend build'], githubIoRoot);
+		exec('git', ['push'], githubIoRoot);
 	} else
 		console.log('hinst.github.io unchanged, skipping commit/push');
 }();

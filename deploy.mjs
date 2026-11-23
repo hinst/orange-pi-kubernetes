@@ -2,7 +2,7 @@
 // Build & push Docker images, apply Helm, and deploy the dynamic frontend
 
 import { spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -10,8 +10,14 @@ const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 
 /** @param {string} directory */
 function requireDirectory(directory) {
-	if (!existsSync(directory))
+	let stats;
+	try {
+		stats = statSync(directory);
+	} catch {
 		throw new Error(`Directory not found: ${directory}`);
+	}
+	if (!stats.isDirectory())
+		throw new Error(`Not a directory: ${directory}`);
 	return directory;
 }
 

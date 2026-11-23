@@ -58,7 +58,9 @@ function exec(command, args = [], cwd = repoRoot) {
 	exec('kubectl', ['rollout', 'restart', 'deployment', '--namespace=hinst-website', 'hinst-website']);
 	exec('kubectl', ['rollout', 'status', 'deployment/hinst-website', '--namespace=hinst-website', '--timeout=120s']);
 	exec('kubectl', ['rollout', 'restart', 'deployment', '--namespace=default', 'adminer']);
+	exec('kubectl', ['rollout', 'status', 'deployment/adminer', '--namespace=default', '--timeout=120s']);
 	exec('kubectl', ['rollout', 'restart', 'deployment', '--namespace=default', 'uptime-kuma']);
+	exec('kubectl', ['rollout', 'status', 'deployment/uptime-kuma', '--namespace=default', '--timeout=120s']);
 }();
 
 +function deployDynamicFrontend() {
